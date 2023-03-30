@@ -1,0 +1,48 @@
+apiVersion: v1alpha
+kind: playwright
+defaults:
+  mode: sauce
+  timeout: 2m
+sauce:
+  region: eu-central-1
+  tunnel:
+    name: RP101
+    owner: rare101
+  concurrency: 10 # Controls how many suites are executed at the same time.
+  metadata:
+    tags:
+      - e2e
+      - release team
+      - other tag
+docker:
+  # Affects how test files are transferred to the docker container when using the docker mode.
+  fileTransfer: copy # Choose between mount|copy.
+playwright:
+  version: package.json # See https://docs.saucelabs.com/dev/cli/saucectl/#supported-frameworks-and-browsers for a list of supported versions.
+  configFile: playwright.config.ts # See https://docs.saucelabs.com/dev/testrunner-toolkit/configuration/playwright#configuration-examples for a list of supported configuration files.
+# Controls what files are available in the context of a test run (unless explicitly excluded by .sauceignore).
+npm:
+  dependencies:
+    - "allure-playwright"
+
+rootDir: ./
+suites:
+  - name: "Chromium Win11"
+    platformName: "Windows 11"
+    screenResolution: "1440x900"
+    testMatch: ['.*.ts']
+    params:
+      browserName: "chromium"
+      project: "chromium"
+
+# Controls what artifacts to fetch when the suite on Sauce Cloud has finished.
+artifacts:
+  cleanup: true
+  download:
+    when: always
+    match:
+      - console.log
+      - "*.json"
+      - "*.png"
+      - "*.xml"
+    directory: ./sauce-artifacts/
