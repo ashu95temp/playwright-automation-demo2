@@ -17,7 +17,7 @@
   "homepage": "https://github.com/ashu95temp/playwirght-automation-demo2#readme",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@playwright/test": "^1.32.1",
+    "@playwright/test": "^1.31.1",
     "allure-commandline": "^2.21.0",
     "allure-playwright": "^2.1.0",
     "dotenv": "^16.0.3",
